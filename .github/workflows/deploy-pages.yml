@@ -1,0 +1,52 @@
+name: Deploy static site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+
+      - name: Preflight - fail on merge conflict markers
+        run: |
+          if grep -R -n -E '^(<<<<<<<|=======|>>>>>>>)' . --exclude-dir=.git; then
+            echo 'Merge conflict markers detected. Failing build.'
+            exit 1
+          fi
+      - name: Verify required files
+        run: |
+          test -f index.html
+          test -f styles.css
+          test -f script.js
+          echo "Static app files detected."
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
