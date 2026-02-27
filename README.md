@@ -189,3 +189,42 @@ All exercise videos are centralized in `script.js` inside the `VIDEO_URLS` objec
 3. Replace any value with your preferred YouTube embed URL:
    - format: `https://www.youtube.com/embed/<VIDEO_ID>`
 4. Any exercise using a placeholder is marked in the UI with a **Needs video** badge so you can quickly find and replace it.
+
+
+## How to swap exercise images
+
+Exercise image paths live in `script.js` inside the `exercises` library object:
+
+```js
+const exercises = {
+  bench_press: { imageSrc: 'assets/images/bench-press.svg', ... }
+}
+```
+
+Replace any `imageSrc` with another local file in `/assets/images/`.
+Use 16:9 images for best card layout.
+
+## How to add/replace demo links
+
+Demo links also live in `script.js` in the same `exercises` library object:
+
+```js
+bench_press: { demoUrl: 'https://www.youtube.com/watch?v=...' }
+```
+
+- Use full YouTube watch links.
+- If `demoUrl` is `null`, the app shows **Demo (placeholder)** and a **Needs demo link** badge.
+
+## GitHub Pages deploy (main branch only)
+
+The Pages workflow is configured to deploy only from `main` plus manual runs:
+
+```yaml
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+```
+
+So feature/Codex branches will not attempt deployment.
