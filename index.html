@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f5f5f7" />
+  <meta name="description" content="Fatigue-aware training rebuild app with phase progression and desk relief routines." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <title>Training Rebuild</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div>
+        <p class="eyebrow">Training Rebuild</p>
+        <h1 id="dayTitle">Lower 1 (Hinge)</h1>
+      </div>
+      <button id="themeToggle" class="icon-button" aria-label="Toggle theme"><span id="themeIcon">🌓</span></button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Phase</h2>
+        <span class="muted">Volume before intensity · 2–3 RIR · no failure</span>
+      </div>
+      <div class="segmented-control">
+        <button class="phase-btn active" data-phase="phase1">Phase 1</button>
+        <button class="phase-btn" data-phase="phase2">Phase 2</button>
+        <button class="phase-btn" data-phase="phase3">Phase 3</button>
+      </div>
+    </section>
+
+    <section class="panel" id="dayIntro"></section>
+
+    <section class="panel" id="flowPanel"></section>
+
+    <section class="panel" id="stiffPanel">
+      <button class="collapse-toggle" data-target="stiffBody"><span>If stiff after sitting (2–5 min)</span><span class="chevron">⌄</span></button>
+      <div id="stiffBody" class="collapsible"></div>
+    </section>
+
+    <section class="panel">
+      <button class="collapse-toggle" data-target="supercompBody"><span>Supercompensation signals</span><span class="chevron">⌄</span></button>
+      <div id="supercompBody" class="collapsible">
+        <div class="supercomp-grid">
+          <article>
+            <h3>Progress if</h3>
+            <label><input type="checkbox" /> Warm-ups feel easier</label>
+            <label><input type="checkbox" /> No next-day stiffness increase</label>
+            <label><input type="checkbox" /> Same load feels easier</label>
+            <label><input type="checkbox" /> Stiffness clears quickly</label>
+          </article>
+          <article>
+            <h3>Regress if</h3>
+            <label><input type="checkbox" /> Stiffness accumulates across days</label>
+            <label><input type="checkbox" /> Fatigue appears earlier</label>
+            <label><input type="checkbox" /> End-range reliance increases</label>
+            <label><input type="checkbox" /> Tightness keeps building</label>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="programSections" class="program-sections" aria-live="polite"></section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="day-tab active" data-day="lower1">Lower 1</button>
+    <button class="day-tab" data-day="upper">Upper</button>
+    <button class="day-tab" data-day="lower2">Lower 2</button>
+    <button class="day-tab" data-day="athletic">Athletic</button>
+    <button class="day-tab" data-day="desk">Desk Relief</button>
+  </nav>
+
+  <template id="sectionTemplate">
+    <section class="panel section-panel">
+      <button class="collapse-toggle" data-target=""><span class="section-title"></span><span class="chevron">⌄</span></button>
+      <div class="collapsible section-body"></div>
+    </section>
+  </template>
+
+  <template id="cardTemplate">
+    <article class="exercise-card">
+      <img class="exercise-image" alt="Exercise visual" loading="lazy" />
+      <div class="exercise-content">
+        <div class="exercise-head">
+          <h3 class="exercise-name"></h3>
+          <span class="badge needs-link">Needs demo link</span>
+        </div>
+        <p class="exercise-meta"></p>
+        <p class="exercise-cues"></p>
+        <p class="exercise-progression"></p>
+        <p class="exercise-stop"></p>
+        <a class="demo-link" target="_blank" rel="noopener">Watch demo</a>
+        <div class="field-row"><label>Load / effort<input type="number" min="0" step="0.5" class="load-input" placeholder="Optional" /></label></div>
+        <button class="collapse-toggle small" data-target=""><span>Technique notes</span><span class="chevron">⌄</span></button>
+        <div class="collapsible notes"></div>
+        <label class="fatigue-toggle"><input type="checkbox" class="fatigue-check" /> Fatigue checklist completed</label>
+      </div>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
