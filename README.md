@@ -113,3 +113,12 @@ Do this exact sequence:
 6. Wait 2–5 minutes, then hard refresh (`Cmd/Ctrl+Shift+R`).
 
 If the workflow is green but URL still 404, the most common cause is that Pages source is still set to branch mode instead of GitHub Actions.
+
+
+## Do I have to configure GitHub Pages Jekyll?
+
+No. For this project, you do **not** need to configure Jekyll.
+
+- This repo already includes a `.nojekyll` file, which tells GitHub Pages to skip Jekyll processing.
+- Since this is a plain static app (HTML/CSS/JS), skipping Jekyll is the correct setup.
+- Just keep **Settings → Pages → Source = GitHub Actions** and deploy via the workflow.
