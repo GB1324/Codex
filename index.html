@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f5f5f7" />
+  <meta name="description" content="Training Rebuild: fatigue-aware performance program with phase progression, videos, and mobile tracking." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <title>Training Rebuild</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div>
+        <p class="eyebrow">Performance Rebuild</p>
+        <h1 id="dayTitle">Lower 1 (Hinge)</h1>
+      </div>
+      <button id="themeToggle" class="icon-button" aria-label="Cycle theme mode">
+        <span id="themeIcon">☀️</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Phase</h2>
+        <span class="muted">Volume before intensity · 2–3 RIR · no failure</span>
+      </div>
+      <div class="segmented-control" role="tablist" aria-label="Phase switcher">
+        <button class="phase-btn active" data-phase="phase1">Phase 1</button>
+        <button class="phase-btn" data-phase="phase2">Phase 2</button>
+        <button class="phase-btn" data-phase="phase3">Phase 3</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <button class="collapse-toggle open" data-target="supercompBody">
+        <span>Supercompensation checks</span><span class="chevron">⌄</span>
+      </button>
+      <div id="supercompBody" class="collapsible open">
+        <div class="supercomp-grid">
+          <article>
+            <h3>Progress if:</h3>
+            <label><input type="checkbox" /> Warm-ups feel easier</label>
+            <label><input type="checkbox" /> No increase in next-day stiffness</label>
+            <label><input type="checkbox" /> Same load feels easier</label>
+            <label><input type="checkbox" /> Stiffness clears quickly</label>
+          </article>
+          <article>
+            <h3>Regress if:</h3>
+            <label><input type="checkbox" /> Stiffness accumulates over days</label>
+            <label><input type="checkbox" /> Fatigue appears earlier</label>
+            <label><input type="checkbox" /> End-range compensation increases</label>
+            <label><input type="checkbox" /> Tightness keeps building</label>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <button class="collapse-toggle" data-target="stiffBody">
+        <span>If stiff after sitting (2–5 min)</span><span class="chevron">⌄</span>
+      </button>
+      <div id="stiffBody" class="collapsible"></div>
+    </section>
+
+    <section class="panel">
+      <button class="collapse-toggle" data-target="dailyResetBody">
+        <span>Daily reset (5 min)</span><span class="chevron">⌄</span>
+      </button>
+      <div id="dailyResetBody" class="collapsible"></div>
+    </section>
+
+    <section id="programSections" class="program-sections" aria-live="polite"></section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Training day navigation">
+    <button class="day-tab active" data-day="lower1">Lower 1</button>
+    <button class="day-tab" data-day="upper">Upper</button>
+    <button class="day-tab" data-day="lower2">Lower 2</button>
+    <button class="day-tab" data-day="athletic">Athletic</button>
+    <button class="day-tab" data-day="desk">Desk Relief</button>
+  </nav>
+
+  <template id="sectionTemplate">
+    <section class="program-block panel">
+      <button class="collapse-toggle open" data-target="">
+        <span class="section-title"></span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="collapsible open section-body"></div>
+    </section>
+  </template>
+
+  <template id="exerciseTemplate">
+    <article class="exercise-card">
+      <div class="video-wrap">
+        <iframe
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          title="Exercise demo video"
+        ></iframe>
+      </div>
+      <div class="exercise-content">
+        <div class="exercise-head">
+          <h3 class="exercise-name"></h3>
+          <span class="badge missing-badge">Needs video</span>
+        </div>
+        <p class="exercise-meta"></p>
+        <p class="exercise-cues"></p>
+        <p class="exercise-progression"></p>
+        <div class="field-row">
+          <label>Load / effort
+            <input type="number" min="0" step="0.5" class="load-input" placeholder="Optional" />
+          </label>
+        </div>
+        <button class="collapse-toggle small" data-target=""><span>Technique notes</span><span class="chevron">⌄</span></button>
+        <div class="collapsible notes"></div>
+        <label class="fatigue-toggle"><input type="checkbox" class="fatigue-check" /> Fatigue checklist done</label>
+      </div>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
